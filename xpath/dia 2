@@ -68,3 +68,16 @@ Dia 2 ejercicio
 	//universidad/alumnos/alumno[estudios/carrera[nombre="I.T. Informática"] and estudios/asignaturas/asignatura[creditos_practicos=0]]/nombre
 27. Nombre de los alumnos que estudian carreras cuyos planes son anteriores a 2002.
 	//universidad/alumnos/alumno[estudios/carrera[plan < 2002]]/nombre
+
+Primer ejercicio dia 2
+1. Extraer la cantidad depositada en el fondo con cuenta asociada 20-A.
+	//listado/fondo[cuentaasociada[text()="20-A"]]/datos/cantidaddepositada
+
+2. Extraer un listado sin etiquetas de todas las monedas usadas por los distintos fondos.
+	//listado/fondo/datos/moneda/text()
+
+3. Extraer el DNI de las cuentas que usen dólares como moneda de base.
+        //listado/cuenta[saldoactual/@moneda = "euros"]/titular/@dni
+
+4. Extraer toda la información de los fondos que usen Euros por un valor inferior a 2500.
+	//listado/fondo[datos/moneda = "Euros" and datos/cantidaddepositada < 2500]
