@@ -1,0 +1,78 @@
+CONSULTAS XQUERY PARA SIMULACRO
+Tiempo estimado: 2 horas
+
+1. El modelo de las impresoras de tipo láser.
+
+for $impresora in impresoras/impresora
+where $impresora/@tipo = "láser"
+return $impresora/modelo/text()
+
+2. La marca y modelo (separados por un espacio en blanco) de las impresoras con más de un tamaño.
+
+for $impresora in impresoras/impresora
+where count($impresora/tamano) > 1
+return concat($impresora/marca, " ", $impresora/modelo)
+
+3. La marca y modelo (separados por un espacio en blanco) de las impresoras con tamaño A3 (pueden tener otros).
+
+for $impresora in impresoras/impresora
+where $impresora/tamano = "A3"
+return concat($impresora/marca, " ", $impresora/modelo)
+
+4. La marca y modelo (separados por un espacio en blanco) de las impresoras con tamaño A3 como único tamaño.
+
+for $impresora in impresoras/impresora
+where $impresora/tamano = "A3" and count($impresora/tamano) = 1
+return concat($impresora/marca, " ", $impresora/modelo)
+
+5. El modelo de las impresoras en red.
+
+for $impresora in impresoras/impresora
+where exists($impresora/enred)
+return $impresora/modelo/text()
+
+
+6. La cantidad de impresoras guardadas en el fichero XML.
+
+count(
+  for $impresora in impresoras/impresora
+  return $impresora
+)
+
+7. Las impresoras (elementos <impresora>) compradas en 2018 o después. Los resultados se deben ordenar por año de compra (orden ascendente).
+
+for $impresora in impresoras/impresora
+where $impresora/@compra >= 2018
+order by $impresora/@compra ascending 
+return $impresora
+
+8. Las impresoras (elementos <impresora>) con un peso igual o superior a 5 kg.
+
+for $impresora in impresoras/impresora
+where $impresora/peso >= 5
+return $impresora
+
+9. Las impresoras (elementos <impresora>) que tienen cartucho con código C-456P.
+
+for $impresora in impresoras/impresora
+where $impresora/cartucho = "C-456P"
+return $impresora
+
+10. La impresora (elemento <impresora>) más pesada.
+
+for $impresora in impresoras/impresora
+where $impresora/peso = max(impresoras/impresora/peso)
+return $impresora
+
+(: Alternativa :)
+for $impresora in impresoras/impresora
+where $impresora/peso = max( 
+  for $impresora2 in impresoras/impresora/peso
+  return $impresora2)
+return $impresora
+Consideraciones para el examen
+Recordad que en el examen os dejaré consultar vuestros ejercicios y acceso a internet (pero no ChatGPT/inteligencias/trabajo en equipo).
+
+La principal dificultad estriba por tanto en el tiempo. Es necesario que conozcáis el funcionamiento en general de las consultas Xquery para así tener tiempo para buscar sólo aquellas cuestiones en las que tengáis dudas.
+
+EXTRA. Una pregunta del examen será pasar el XML a formato HTML. Por ejemplo, ¿sabrías crear una tabla (o lista) con el número de serie, marca y modelo de las impresoras? 
